@@ -16,14 +16,15 @@ local areas_limit_cost_multiplier = tonumber(minetest.settings:get("areas_limit_
 
 local areas_max = areas.config.self_protection_max_areas
 
-local registered_cost_item_name = {description = "Unknown item", name = areas_limit_cost_item_name}
+local registered_cost_item = {description = "Unknown item", name = areas_limit_cost_item_name}
 
 -- Check payment item (after full game load)
 minetest.after(
     0,
     function()
-        registered_cost_item_name = minetest.registered_items[areas_limit_cost_item_name]
-        if not registered_cost_item_name then
+        registered_cost_item = minetest.registered_items[areas_limit_cost_item_name]
+        if not registered_cost_item then
+            registered_cost_item = {description = "Unknown item", name = areas_limit_cost_item_name}
             minetest.log("error", mod_name .. ": Incorrect limit cost (unknown item): " .. areas_limit_cost_item_name)
         end
     end
@@ -131,9 +132,9 @@ minetest.register_chatcommand(
                 "\n" ..
                     S(
                         "Next limit price: @1 @2 (@3 @4)",
-                        registered_cost_item_name.description,
+                        registered_cost_item.description,
                         next_cost,
-                        registered_cost_item_name.name,
+                        registered_cost_item.name,
                         next_cost
                     )
         end
@@ -168,18 +169,18 @@ minetest.register_chatcommand(
                     "\n" ..
                         S(
                             "Next limit price: @1 @2 (@3 @4)",
-                            registered_cost_item_name.description,
+                            registered_cost_item.description,
                             next_cost,
-                            registered_cost_item_name.name,
+                            registered_cost_item.name,
                             next_cost
                         )
             end
 
             return false, S(
                 "Cannot take payment: @1 @2 (@3 @4)",
-                registered_cost_item_name.description,
+                registered_cost_item.description,
                 next_cost,
-                registered_cost_item_name.name,
+                registered_cost_item.name,
                 next_cost
             )
         end
