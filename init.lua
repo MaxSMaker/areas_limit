@@ -14,6 +14,8 @@ local areas_limit_cost_item_name = minetest.settings:get("areas_limit_cost_item_
 local areas_limit_cost_item_count = tonumber(minetest.settings:get("areas_limit_cost_item_count")) or 99
 local areas_limit_cost_multiplier = tonumber(minetest.settings:get("areas_limit_cost_multiplier")) or 2
 
+local areas_max = areas.config.self_protection_max_areas
+
 local registered_cost_item_name = {description = "Unknown item", name = areas_limit_cost_item_name}
 
 -- Check payment item (after full game load)
@@ -121,14 +123,19 @@ minetest.register_chatcommand(
         privs = {[areas.config.self_protection_privilege] = true},
         func = function(name, param)
             local next_cost = next_limit_cost(name)
+            if get_limit(name) >= areas_max then
+                return true, S("Area limit used: @1/@2", areas_exist[name] or 0, get_limit(name)) ..
+                    "\n" .. S("Maximum limit value reached")
+            end
             return true, S("Area limit used: @1/@2", areas_exist[name] or 0, get_limit(name)) ..
-                S(
-                    ", next limit price: @1 @2 (@3 @4)",
-                    registered_cost_item_name.description,
-                    next_cost,
-                    registered_cost_item_name.name,
-                    next_cost
-                )
+                "\n" ..
+                    S(
+                        "Next limit price: @1 @2 (@3 @4)",
+                        registered_cost_item_name.description,
+                        next_cost,
+                        registered_cost_item_name.name,
+                        next_cost
+                    )
         end
     }
 )
@@ -139,6 +146,10 @@ minetest.register_chatcommand(
         description = S("Increase your area limit"),
         privs = {[areas.config.self_protection_privilege] = true},
         func = function(name, param)
+            if get_limit(name) >= areas_max then
+                return false, S("Maximum limit value reached")
+            end
+
             local next_cost = next_limit_cost(name)
             local inv = minetest.get_inventory({type = "player", name = name})
 
@@ -147,15 +158,21 @@ minetest.register_chatcommand(
                 inv:remove_item("main", stack)
                 set_limit(name, get_limit(name) + 1)
 
+                if get_limit(name) >= areas_max then
+                    return false, S("Your area limit: @1", get_limit(name)) ..
+                        "\n" .. S("Maximum limit value reached")
+                end
+
                 local next_cost = next_limit_cost(name)
-                return true, S("Your protect limit: @1", get_limit(name)) ..
-                    S(
-                        ", next limit price: @1 @2 (@3 @4)",
-                        registered_cost_item_name.description,
-                        next_cost,
-                        registered_cost_item_name.name,
-                        next_cost
-                    )
+                return true, S("Your area limit: @1", get_limit(name)) ..
+                    "\n" ..
+                        S(
+                            "Next limit price: @1 @2 (@3 @4)",
+                            registered_cost_item_name.description,
+                            next_cost,
+                            registered_cost_item_name.name,
+                            next_cost
+                        )
             end
 
             return false, S(
