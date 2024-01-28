@@ -1,0 +1,4 @@
+areas_limit_free_count (Free area count for user) int 4
+areas_limit_cost_item_name (Item name for buy increased area limit) string default:cobble
+areas_limit_cost_item_count (Item count for buy increased area limit) int 99
+areas_limit_cost_multiplier (Cost multiplier for buy next area limit) float 2
