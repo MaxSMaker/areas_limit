@@ -1,0 +1,16 @@
+# textdomain: areas_limit
+Area @1 removed.=
+Area limit reached. Increase the area limit (see /areas_limit and /areas_limit_buy commands)=
+Get your area limit=
+Area limit used: @1/@2=
+Maximum limit value reached=
+Next limit price: @1 @2 (@3 @4)=
+Increase your area limit=
+Your area limit: @1=
+Cannot take payment: @1 @2 (@3 @4)=
+<PlayerName> [<Limit>]=
+Get or set areas limit for user=
+Invalid usage, see /help @1.=
+The player does not exist.=
+Areas limit for @1: @2=
+Areas limit updated for @1: @2=

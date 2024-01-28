@@ -1,0 +1,16 @@
+# textdomain: areas_limit
+Area @1 removed.=Область @1 удалена.
+Area limit reached. Increase the area limit (see /areas_limit and /areas_limit_buy commands)=Достигнут лимит областей. Увеличьте лимит (см. команды /areas_limit и /areas_limit_buy)
+Get your area limit=Получить свой лимит областей
+Area limit used: @1/@2=Лимит областей использован: @1/@2
+Maximum limit value reached=Максимальный лимит достигнут
+Next limit price: @1 @2 (@3 @4)=Стоимость следующего лимита: @1 @2 (@3 @4)
+Increase your area limit=Увеличить лимит областей
+Your area limit: @1=Ваш лимит областей: @1
+Cannot take payment: @1 @2 (@3 @4)=Невозможно совершить платеж: @1 @2 (@3 @4)
+<PlayerName> [<Limit>]=<ИмяИгрока> [<Лимит>]
+Get or set areas limit for user=Получить или установить лимит игрока
+Invalid usage, see /help @1.=Неправильное использование, см. /help @1.
+The player does not exist.=Игрока не существует
+Areas limit for @1: @2=Лимит областей для @1: @2
+Areas limit updated for @1: @2=Лимит областей обновлен для @1: @2
