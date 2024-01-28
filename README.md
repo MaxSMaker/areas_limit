@@ -14,7 +14,7 @@ This mod provides this functionality.
 
 **Warning!** The `areas.self_protection_max_areas` setting must be set to the maximum number of areas.
 
-* `areas_limit_free_count` - number of free limits.
+* `areas_limit_free_count` - number of free areas.
 * `areas_limit_cost_item_name` - the item for which the limit is purchased.
 * `areas_limit_cost_item_count` - the number of items for purchasing limits.
 * `areas_limit_cost_multiplier` - cost multiplier for each next purchase.
