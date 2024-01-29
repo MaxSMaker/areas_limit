@@ -53,7 +53,7 @@ local next_limit_cost = function(name)
         cost = cost * areas_limit_cost_multiplier
         level = level - 1
     end
-    return cost
+    return math.ceil(cost)
 end
 
 local inc_area_count = function(name)
@@ -160,8 +160,7 @@ minetest.register_chatcommand(
                 set_limit(name, get_limit(name) + 1)
 
                 if get_limit(name) >= areas_max then
-                    return false, S("Your area limit: @1", get_limit(name)) ..
-                        "\n" .. S("Maximum limit value reached")
+                    return false, S("Your area limit: @1", get_limit(name)) .. "\n" .. S("Maximum limit value reached")
                 end
 
                 local next_cost = next_limit_cost(name)
