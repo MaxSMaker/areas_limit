@@ -14,3 +14,5 @@ Invalid usage, see /help @1.=
 The player does not exist.=
 Areas limit for @1: @2=
 Areas limit updated for @1: @2=
+Get top players by limit=
+Top players:=

@@ -220,3 +220,37 @@ minetest.register_chatcommand(
         end
     }
 )
+
+local TOP_LIMIT = 5
+minetest.register_chatcommand(
+    "areas_limit_top",
+    {
+        description = S("Get top players by limit"),
+        privs = {[areas.config.self_protection_privilege] = true},
+        func = function(name, param)
+            local keys = storage:get_keys()
+            local data = {}
+            -- return true,  minetest.write_json(keys)
+            for i = 1, #keys, 1 do
+                if string.sub(keys[i], 1, 6) == "limit_" then
+                    local name = string.sub(keys[i], 7)
+                    table.insert(data, {player = name, limit = get_limit(name)})
+                end
+            end
+            -- return true, minetest.write_json(data)
+            table.sort(
+                data,
+                function(a, b)
+                    return a.limit > b.limit
+                end
+            )
+            local top = {S("Top players:")}
+            for i = 1, TOP_LIMIT, 1 do
+                if i <= #data then
+                    table.insert(top, data[i].player .. ": " .. data[i].limit)
+                end
+            end
+            return true, table.concat(top, "\n")
+        end
+    }
+)
